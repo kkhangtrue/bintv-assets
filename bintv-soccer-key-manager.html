@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>BinTV — Quản lý ngăn API bóng đá</title>
+<style>
+:root { --bg:#050713; --panel:#0e1425; --panel2:#121c32; --stroke:#26344d; --text:#f0f5ff; --muted:#adbad0; --accent:#7ab9ff; --blue:#034694; --good:#70d4ac; --warn:#ffca7b; --bad:#ff9a9a; --focus:0 0 0 3px rgba(122,185,255,.30); font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif }
+* {box-sizing:border-box} html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text)} body{line-height:1.45} button,input,textarea{font:inherit}
+a{color:var(--accent)} button{cursor:pointer} button:disabled{cursor:not-allowed;opacity:.4} button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1250px;margin:0 auto;padding:24px 20px 72px}.topline{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.logo{width:43px;height:43px;display:grid;place-items:center;background:var(--blue);border-radius:13px;font-weight:900;letter-spacing:-2px;font-size:20px}.eyebrow{font-size:11px;color:var(--accent);letter-spacing:.14em;font-weight:800}.topline strong{display:block;font-size:17px;line-height:1.15}.pill{margin-left:auto;border:1px solid var(--stroke);border-radius:99px;padding:6px 11px;color:var(--muted);font-size:12px}
+h1{font-size:clamp(26px,3.5vw,42px);line-height:1.16;letter-spacing:-.04em;margin:24px 0 10px;font-weight:800}.lead{color:var(--muted);max-width:780px;margin:0 0 20px;font-size:15px}.steps{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:24px}.step{font-size:12px;color:#cbd5e4;border:1px solid var(--stroke);background:#0a1020;border-radius:99px;padding:7px 12px}.step b{color:var(--accent)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin-bottom:22px}.btn{border:1px solid var(--stroke);border-radius:12px;background:var(--panel2);color:var(--text);font-weight:700;padding:11px 15px;min-height:42px;transition:.15s ease}.btn:hover:not(:disabled){border-color:#55749b;background:#1a2944}.btn.primary{background:#0758ad;border-color:#2483df;color:white}.btn.primary:hover{background:#0969cf}.btn.ghost{background:transparent}.btn.danger{color:#ffb5b5}.btn.small{min-height:35px;padding:7px 10px;font-size:12px}.hint{font-size:12px;color:var(--muted)}
+.layout{display:grid;grid-template-columns:285px minmax(0,1fr);gap:18px;align-items:start}.card{background:var(--panel);border:1px solid var(--stroke);border-radius:19px;min-width:0}.sidebar{padding:18px;position:sticky;top:16px}.cardhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px}.cardhead h2{margin:0;font-size:16px}.count{font-size:12px;color:var(--muted)}.groups{display:flex;flex-direction:column;gap:8px;margin:10px 0 14px}.group-btn{width:100%;text-align:left;border:1px solid transparent;background:#101a2e;border-radius:13px;color:var(--text);padding:12px;display:flex;gap:10px;justify-content:space-between;align-items:center}.group-btn:hover{border-color:#47608a}.group-btn.active{background:#102a50;border-color:#568bcb}.g-title{font-size:13px;font-weight:700;display:block;max-width:188px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.g-desc{font-size:11px;color:var(--muted);margin-top:3px}.numb{font-size:12px;color:var(--accent);font-weight:800}.side-note{color:var(--muted);font-size:12px;margin-top:16px;padding-top:16px;border-top:1px solid var(--stroke)}
+.editor{padding:22px}.editor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:1px solid var(--stroke);padding-bottom:17px;margin-bottom:18px}.editor-head h2{font-size:22px;letter-spacing:-.03em;margin:4px 0 4px}.editor-head p{margin:0;color:var(--muted);font-size:13px}.editor-tools{display:flex;gap:7px;flex-wrap:wrap}.tag{display:inline-flex;border:1px solid #35587d;background:#0c2642;color:var(--accent);padding:4px 8px;border-radius:8px;font-size:11px;font-weight:800}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{margin-bottom:16px}.field label{display:block;font-size:13px;font-weight:750;margin-bottom:7px}.field input,.field textarea{width:100%;background:#090f20;border:1px solid #35445d;border-radius:11px;padding:12px 13px;color:var(--text);resize:vertical;outline:none}.field input:focus,.field textarea:focus{border-color:var(--accent);box-shadow:var(--focus)}.field textarea{min-height:96px;line-height:1.55}.field small{display:block;color:var(--muted);margin-top:7px;font-size:12px}.keys-area{min-height:164px!important;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:13px}.mask{ -webkit-text-security:disc }.field-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.inline-btn{border:0;background:transparent;color:var(--accent);font-weight:750;font-size:12px;padding:6px}.inline-btn:hover{text-decoration:underline}
+.notice{border:1px solid #345071;background:#10233b;color:#d7e9ff;padding:12px 13px;border-radius:12px;font-size:12px;margin-top:8px}.notice strong{display:block;margin-bottom:3px;font-size:13px}.notice.warn{border-color:#715638;background:#2a221a;color:#ffdfaa}.notice.err{border-color:#83424b;background:#321b25;color:#ffd0d0}.stats{display:flex;gap:10px;flex-wrap:wrap;margin:19px 0 13px}.stat{border:1px solid var(--stroke);background:#0a1020;border-radius:13px;padding:11px 15px;min-width:110px;flex:1}.stat strong{display:block;font-size:22px}.stat span{font-size:11px;color:var(--muted)}.checks{display:grid;gap:7px}.checkrow{font-size:13px;border:1px solid var(--stroke);border-radius:10px;padding:9px 11px;background:#0a1121;display:flex;align-items:flex-start;gap:8px}.checkrow i{font-style:normal;font-weight:900}.checkrow.err{color:var(--bad)}.checkrow.warn{color:var(--warn)}.checkrow.ok{color:var(--good)}
+.bottom{margin-top:18px;padding:20px}.bottom h2{margin:0 0 8px;font-size:17px}.bottom p{color:var(--muted);font-size:13px}.export-actions{display:flex;flex-wrap:wrap;gap:9px;margin:13px 0}.preview{margin-top:12px}.preview summary{cursor:pointer;font-size:13px;color:var(--accent);font-weight:700}.preview pre{background:#070c18;border:1px solid var(--stroke);border-radius:12px;color:#cbddf2;max-height:300px;overflow:auto;padding:13px;font-size:11px;white-space:pre;line-height:1.55}.footer{text-align:center;color:var(--muted);font-size:12px;margin-top:24px}.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%);background:#0c2a48;border:1px solid var(--accent);border-radius:12px;padding:12px 17px;color:white;max-width:min(90vw,600px);z-index:100;box-shadow:0 8px 40px #0009}.toast[hidden]{display:none}.file-input{display:none}.empty{padding:26px;text-align:center;color:var(--muted)}
+@media(max-width:890px){.layout{grid-template-columns:1fr}.sidebar{position:static}.groups{flex-direction:row;overflow-x:auto;padding-bottom:3px}.group-btn{flex:0 0 194px}.side-note{margin-top:12px}.sidebar{padding:14px}}
+@media(max-width:580px){.wrap{padding:16px 12px 45px}.pill{margin-left:0}.editor{padding:15px}.form-grid{grid-template-columns:1fr;gap:0}.editor-head h2{font-size:20px}.actions .btn{flex:1 1 145px}.export-actions .btn{flex:1 1 145px}.stat{min-width:90px}.step{font-size:11px}.bottom{padding:15px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="topline"><div class="logo" aria-hidden="true">B</div><div><div class="eyebrow">BINTV / CÔNG CỤ THỬ NGHIỆM</div><strong>Quản lý kho API bóng đá</strong></div><span class="pill">Một file HTML · Không cần cài đặt</span></div>
+  <h1>Điền API key mà không cần sửa JSON</h1>
+  <p class="lead">Mỗi <b>ngăn</b> dành cho một nhóm giải đấu. Bạn dán các key có <b>cùng quyền xem giải</b> vào ngăn đó. Công cụ kiểm tra định dạng rồi xuất file để bạn cập nhật lên GitHub.</p>
+  <div class="steps"><span class="step"><b>1.</b> Tạo ngăn</span><span class="step"><b>2.</b> Điền mã giải &amp; key</span><span class="step"><b>3.</b> Tải JSON</span><span class="step"><b>4.</b> Đưa lên GitHub</span></div>
+</header>
+<div class="actions">
+  <button class="btn primary" id="loadRemote">↓ Lấy cấu hình từ GitHub</button>
+  <button class="btn" id="importBtn">↑ Mở file JSON có sẵn</button>
+  <button class="btn ghost" id="resetBtn">↺ Dùng mẫu ban đầu</button>
+  <span id="sourceText" class="hint" aria-live="polite">Đang dùng file mẫu; chưa kết nối GitHub</span>
+  <input class="file-input" type="file" id="importInput" accept=".json,application/json">
+</div>
+<div class="layout">
+  <aside class="card sidebar" aria-label="Các ngăn API">
+    <div class="cardhead"><h2>Các ngăn API</h2><span class="count" id="groupCount"></span></div>
+    <div class="groups" id="groups"></div>
+    <button class="btn primary" id="addGroup" style="width:100%">＋ Thêm ngăn mới</button>
+    <div class="side-note">Mỗi ngăn tối đa <b>8 key</b>. Mỗi cấu hình tối đa <b>12 ngăn</b> và <b>48 key</b> tổng cộng. Ngăn chỉ là tên nhóm, không phải tài khoản SoccerSAPI.</div>
+  </aside>
+  <main class="card editor">
+    <div id="editor"></div>
+    <div class="stats" id="stats"></div>
+    <div class="checks" id="checks" aria-live="polite"></div>
+  </main>
+</div>
+<section class="card bottom">
+  <h2>Xuất cấu hình để BinTV đọc</h2>
+  <p>Trước tiên hãy kiểm tra các ngăn, sau đó <b>Tải file JSON</b> hoặc <b>Sao chép JSON</b>. Tại GitHub, mở file <code>soccer-key-pools.json</code>, chọn biểu tượng bút chì, dán thay nội dung cũ và nhấn <b>Commit changes</b>.</p>
+  <div class="export-actions">
+    <button class="btn primary" id="downloadBtn">↓ Tải soccer-key-pools.json</button>
+    <button class="btn" id="copyBtn">⧉ Sao chép JSON</button>
+    <a class="btn ghost" href="https://github.com/kkhangtrue/bintv-assets/edit/main/soccer-key-pools.json" target="_blank" rel="noopener noreferrer" style="text-decoration:none;text-align:center">Mở GitHub để dán ↗</a>
+  </div>
+  <div class="notice warn"><strong>Key trong GitHub Public là công khai.</strong>Dùng key thử nghiệm có thể thu hồi. Công cụ này không gửi key đến máy chủ nào khi bạn nhập hoặc xuất; nút “Lấy cấu hình từ GitHub” chỉ đọc tệp công khai. Khi Commit lên GitHub, key sẽ hiển thị trong file và lịch sử commit.</div>
+  <details class="preview"><summary>Xem trước JSON sẽ xuất (có chứa key thật)</summary><pre id="preview"></pre></details>
+</section>
+<div class="footer">BinTV · SoccerSAPI key pools · Phù hợp cấu trúc cấu hình R70 phiên bản 1 · Hoạt động offline sau khi tải file HTML</div>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script>
+'use strict';
+(function(){
+const RAW='https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/soccer-key-pools.json';
+const EDIT='https://github.com/kkhangtrue/bintv-assets/edit/main/soccer-key-pools.json';
+const DEFAULT=[
+  {id:'abc',name:'Nhóm A · EPL / C1 / V.League (ví dụ)',league_ids:['39','2','787'],keys:[]},
+  {id:'def',name:'Nhóm B · Chưa xác định giải',league_ids:[],keys:[]}
+];
+const clone=x=>JSON.parse(JSON.stringify(x));
+let groups=clone(DEFAULT),selected=0,dirty=false,hideKeys=true,toastTimer;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const keyLines=g=>Array.isArray(g.keys)?g.keys:[];
+const normKeys=g=>keyLines(g).map(s=>String(s).trim()).filter(s=>s&&!/^PASTE_/i.test(s)&&!/^YOUR_/i.test(s));
+const normLeagues=g=>Array.isArray(g.league_ids)?g.league_ids.map(x=>String(x).trim()).filter(Boolean):[];
+function toast(t){const el=$('toast');el.textContent=t;el.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.hidden=true,4300)}
+function dirtyNow(){dirty=true;$('sourceText').textContent='Có chỉnh sửa chưa tải xuống'; updateChecks()}
+function parseCSV(t){return t.split(/[\n,;]+/).map(x=>x.trim()).filter(Boolean)}
+function parseKeys(t){return t.split(/\r?\n/).map(x=>x.trim()).filter(Boolean)}
+function info(g,i){return g.name?.trim()||`Ngăn ${i+1}`}
+function validations(){
+ const errors=[],warns=[]; const push=(arr,s)=>arr.push(s);
+ if(groups.length>12)push(errors,'Quá 12 ngăn. Hãy xóa hoặc gộp ngăn.');
+ if(groups.length===0)push(warns,'Chưa có ngăn nào; cấu hình sẽ không cung cấp lịch.');
+ const ids=new Set(), keys=new Map();let total=0,placeholder=0;
+ groups.forEach((g,i)=>{
+   const label=`${info(g,i)} (#${i+1})`;
+   const id=String(g.id||'').trim();
+   if(!/^[a-z0-9_-]{2,36}$/.test(id))push(errors,`${label}: Mã ngăn phải dài 2–36 ký tự, chỉ chứa a–z, 0–9, _ hoặc -.`);
+   if(ids.has(id))push(errors,`${label}: Trùng mã ngăn “${id}”.`); ids.add(id);
+   const league=normLeagues(g),unique=new Set(league);
+   if(league.length>20)push(errors,`${label}: Quá 20 mã giải.`);
+   if(league.some(x=>!/^\d{1,12}$/.test(x)))push(errors,`${label}: Mã giải phải là số, dài 1–12 chữ số.`);
+   if(unique.size!==league.length)push(warns,`${label}: Có mã giải trùng; công cụ sẽ bỏ trùng khi xuất.`);
+   if(league.length===0)push(warns,`${label}: Chưa khai báo mã giải. Bạn nên kiểm tra gói của từng key.`);
+   const active=normKeys(g); total+=active.length; placeholder+=keyLines(g).length-active.length;
+   if(active.length>8)push(errors,`${label}: ${active.length} key, nhưng một ngăn chỉ được tối đa 8 key.`);
+   for(const key of active){
+     if(key.length<10||key.length>512||/\s/.test(key)||/[\\/]/.test(key))push(errors,`${label}: Một key có định dạng không hợp lệ (độ dài 10–512, không có dấu cách, / hoặc \\).`);
+     if(keys.has(key))push(errors,`${label}: Có key trùng với “${keys.get(key)}”. Không nên dùng một key ở hai ngăn.`);
+     else keys.set(key,label);
+   }
+   if(active.length>0&&!g.verified)push(warns,`${label}: Chưa đánh dấu đã đối chiếu quyền giải đấu của key.`);
+ });
+ if(total>48)push(errors,`Có ${total} key; BinTV R70 chỉ nhận tối đa 48 key công khai.`);
+ if(total===0)push(warns,'Hiện chưa có API key thật. Bạn có thể dùng file mẫu trước, nhưng BinTV sẽ chưa lấy lịch từ nguồn này.');
+ return {errors,warns,total,placeholder};
+}
+function exportObj(){return {version:1,groups:groups.map(g=>{
+  const o={id:String(g.id||'').trim()};
+  if(String(g.name||'').trim())o.name=String(g.name).trim();
+  o.league_ids=[...new Set(normLeagues(g))];
+  o.keys=normKeys(g);
+  return o;
+ })};}
+function output(){return JSON.stringify(exportObj(),null,2)+'\n'}
+function renderGroups(){
+ $('groupCount').textContent=`${groups.length}/12`;
+ const container=$('groups');container.innerHTML='';
+ groups.forEach((g,i)=>{
+  const button=document.createElement('button');button.type='button';button.className='group-btn'+(i===selected?' active':'');button.setAttribute('aria-current',i===selected?'true':'false');
+  button.innerHTML=`<span><span class="g-title">${esc(info(g,i))}</span><span class="g-desc">${normLeagues(g).length} giải · ${normKeys(g).length} key</span></span><span class="numb">${i+1}</span>`;
+  button.onclick=()=>{selected=i;renderGroups();renderEditor()};container.append(button);
+ });
+ $('addGroup').disabled=groups.length>=12;
+}
+function renderEditor(){
+ if(!groups.length){$('editor').innerHTML='<div class="empty">Chưa có ngăn API. Bấm “Thêm ngăn mới” để bắt đầu.</div>';updateChecks();return;}
+ const g=groups[selected],n=selected+1;
+ $('editor').innerHTML=`
+  <div class="editor-head"><div><span class="tag">NGĂN ${n} / ${groups.length}</span><h2>${esc(info(g,selected))}</h2><p>Chỉ đặt các key cùng quyền truy cập giải đấu vào ngăn này.</p></div>
+   <div class="editor-tools"><button type="button" class="btn small" id="duplicateGroup">⧉ Tạo ngăn giống</button><button type="button" class="btn small danger" id="removeGroup">Xóa ngăn</button></div></div>
+  <div class="form-grid">
+    <div class="field"><label for="groupName">Tên dễ nhớ</label><input id="groupName" maxlength="100" value="${esc(g.name||'')}" placeholder="Ví dụ: EPL + C1 + V.League"><small>Giúp bạn nhận ra ngăn, không thay đổi quyền truy cập API.</small></div>
+    <div class="field"><label for="groupId">Mã ngăn (id)</label><input id="groupId" maxlength="36" spellcheck="false" value="${esc(g.id||'')}" placeholder="abc"><small>Ví dụ: abc, def, ngoai-hang-anh. Không dùng khoảng trắng hay dấu tiếng Việt.</small></div>
+  </div>
+  <div class="field"><label for="leagues">Mã các giải mà <u>mọi key</u> trong ngăn đều được cấp</label><textarea id="leagues" rows="2" spellcheck="false" placeholder="Ví dụ: 39, 2, 787">${esc(normLeagues(g).join(', '))}</textarea><small>Ngăn cách bằng dấu phẩy hoặc xuống dòng. Các mã 39, 2, 787 có trong file mẫu hiện tại, <b>chưa được công cụ xác minh quyền giải</b>.</small></div>
+  <div class="field"><div class="field-head"><label for="keysArea">API key của ngăn (${normKeys(g).length}/8)</label><button id="toggleMask" type="button" class="inline-btn">${hideKeys?'Hiện key':'Ẩn key'}</button></div><textarea id="keysArea" rows="6" class="keys-area ${hideKeys?'mask':''}" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" placeholder="Dán KEY 1 vào dòng đầu\nDán KEY 2 vào dòng tiếp theo\nDán KEY 3 vào dòng tiếp theo">${esc(keyLines(g).join('\n'))}</textarea><small>Mỗi dòng một key. Thứ tự ở đây là thứ tự ưu tiên dự phòng khi gặp giới hạn quota (HTTP 429). Dòng trống và chuỗi mẫu PASTE_/YOUR_ sẽ bị bỏ khi xuất.</small></div>
+  <div class="notice"><strong>Điều gì xảy ra nếu dán sai ngăn?</strong>BinTV hiện tin vào ngăn bạn khai báo; nó <b>không tự xác minh</b> rằng mọi key được cấp đúng các giải đó. Nếu một key trong ngăn không có quyền tương đương, lịch có thể thiếu hoặc request bị lỗi. Đừng trộn key khác bộ giải chỉ để tăng số lượng.</div>
+  <label style="display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--muted);margin-top:13px;cursor:pointer"><input type="checkbox" id="verified" ${g.verified?'checked':''} style="accent-color:#7ab9ff;margin-top:4px"><span>Tôi đã đối chiếu trên SoccerSAPI: các key trong ngăn thuộc cùng bộ giải.</span></label>
+ `;
+ const input=(id,cb)=>$(id).addEventListener('input',e=>{cb(e.target.value);dirtyNow();renderGroups();$('editor').querySelector('h2').textContent=info(g,selected);const label=$('keysArea').closest('.field').querySelector('label');if(label)label.textContent=`API key của ngăn (${normKeys(g).length}/8)`;});
+ input('groupName',v=>g.name=v);input('groupId',v=>g.id=v);input('leagues',v=>g.league_ids=parseCSV(v));input('keysArea',v=>g.keys=parseKeys(v));
+ $('verified').onchange=e=>{g.verified=e.target.checked;dirtyNow()};
+ $('toggleMask').onclick=()=>{hideKeys=!hideKeys;$('keysArea').classList.toggle('mask',hideKeys);$('toggleMask').textContent=hideKeys?'Hiện key':'Ẩn key'};
+ $('removeGroup').onclick=()=>{if(!confirm(`Xóa ${info(g,selected)}? Các key trong ngăn này sẽ bị xóa khỏi cấu hình đang soạn.`))return;groups.splice(selected,1);selected=Math.max(0,Math.min(selected,groups.length-1));dirtyNow();renderAll()};
+ $('duplicateGroup').onclick=()=>{if(groups.length>=12)return toast('Đã có 12 ngăn — không thể thêm nữa.');const id=uniqueId('nhom');groups.splice(selected+1,0,{id,name:`${g.name||g.id} (ngăn mới)`,league_ids:[...normLeagues(g)],keys:[],verified:false});selected++;dirtyNow();renderAll();toast('Đã tạo ngăn mới có cùng mã giải nhưng chưa có key.');};
+ updateChecks();
+}
+function updateChecks(){const c=validations();$('stats').innerHTML=`<div class="stat"><strong>${groups.length}</strong><span>Ngăn</span></div><div class="stat"><strong>${c.total}</strong><span>Key đang điền</span></div><div class="stat"><strong>${c.errors.length}</strong><span>Lỗi cần sửa</span></div><div class="stat"><strong>${c.warns.length}</strong><span>Điểm cần chú ý</span></div>`;
+ $('checks').innerHTML=c.errors.map(s=>`<div class="checkrow err"><i>×</i><span>${esc(s)}</span></div>`).join('')+c.warns.map(s=>`<div class="checkrow warn"><i>!</i><span>${esc(s)}</span></div>`).join('')+(c.errors.length===0?'<div class="checkrow ok"><i>✓</i><span>Định dạng hợp lệ, có thể xuất JSON. Lưu ý: quyền giải của key cần bạn tự xác minh.</span></div>':'');
+ $('downloadBtn').disabled=!!c.errors.length;$('copyBtn').disabled=!!c.errors.length;$('preview').textContent=c.errors.length?'Vui lòng sửa lỗi định dạng trước khi xuất.':output();
+}
+function uniqueId(prefix){const taken=new Set(groups.map(g=>g.id));let i=groups.length+1;while(taken.has(prefix+'-'+i))i++;return prefix+'-'+i}
+function renderAll(){renderGroups();renderEditor()}
+function fromJSON(txt,source){let parsed;try{parsed=JSON.parse(txt)}catch{toast('Đây không phải JSON hợp lệ.');return}
+ if(!parsed||parsed.version!==1||!Array.isArray(parsed.groups)){toast('Cần JSON có version = 1 và trường groups là danh sách.');return}
+ if(parsed.groups.length>12){toast('File có hơn 12 ngăn, BinTV không hỗ trợ.');return}
+ const newGroups=parsed.groups.map((g,i)=>({id:String(g.id??''),name:String(g.name??g.label??g.id??`Ngăn ${i+1}`),league_ids:Array.isArray(g.league_ids)?g.league_ids.map(String):[],keys:Array.isArray(g.keys)?g.keys.map(String):[],verified:false}));
+ groups=newGroups;selected=0;dirty=false;$('sourceText').textContent='Đã nạp: '+source;renderAll();toast('Đã nạp cấu hình. Hãy kiểm tra mã giải trước khi xuất.');
+}
+function confirmOverwrite(){return !dirty||confirm('Bạn đang có thay đổi chưa xuất. Nạp bản khác sẽ thay thế các nội dung đang soạn. Tiếp tục?')}
+$('addGroup').onclick=()=>{if(groups.length>=12)return toast('BinTV chỉ cho tối đa 12 ngăn.');groups.push({id:uniqueId('nhom'),name:`Nhóm giải mới ${groups.length+1}`,league_ids:[],keys:[],verified:false});selected=groups.length-1;dirtyNow();renderAll();$('groupName')?.focus()};
+$('resetBtn').onclick=()=>{if(!confirmOverwrite())return;groups=clone(DEFAULT);selected=0;dirty=false;$('sourceText').textContent='Đã mở file mẫu ban đầu';renderAll()};
+$('importBtn').onclick=()=>$('importInput').click();
+$('importInput').onchange=async e=>{const file=e.target.files?.[0];if(!file||!confirmOverwrite())return;try{if(file.size>65536)throw Error('File lớn hơn 64 KB.');fromJSON(await file.text(),file.name)}catch(err){toast('Không đọc được file: '+err.message)}finally{e.target.value=''}};
+$('loadRemote').onclick=async()=>{if(!confirmOverwrite())return;const btn=$('loadRemote');btn.disabled=true;btn.textContent='Đang tải…';try{const response=await fetch(RAW+'?t='+Date.now(),{cache:'no-store'});if(!response.ok)throw Error('HTTP '+response.status);const text=await response.text();if(text.length>65536)throw Error('File lớn hơn 64 KB.');fromJSON(text,'GitHub bintv-assets / main')}catch(err){toast('Không đọc được GitHub từ trình duyệt này. Bạn có thể tải JSON thủ công rồi chọn “Mở file JSON có sẵn”.');$('sourceText').textContent='Tải GitHub thất bại: '+err.message}finally{btn.disabled=false;btn.textContent='↓ Lấy cấu hình từ GitHub'}};
+$('downloadBtn').onclick=()=>{if(validations().errors.length)return;const blob=new Blob([output()],{type:'application/json;charset=utf-8'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download='soccer-key-pools.json';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);dirty=false;$('sourceText').textContent='Đã tải JSON. Chưa cập nhật GitHub — cần Commit changes.';toast('Đã tải JSON. Tiếp theo: cập nhật file trên GitHub.');};
+$('copyBtn').onclick=async()=>{if(validations().errors.length)return;const text=output();try{await navigator.clipboard.writeText(text);toast('Đã sao chép JSON. Mở GitHub và dán thay toàn bộ nội dung file.')}catch{const ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.top='-9999px';document.body.append(ta);ta.select();const ok=document.execCommand('copy');ta.remove();toast(ok?'Đã sao chép JSON.':'Không thể sao chép tự động. Hãy tải file JSON thay thế.')}};
+renderAll();
+})();
+</script>
+</body>
+</html>
