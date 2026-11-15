@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "playlists": [
+    {
+      "source": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/vmttv",
+      "logos": {
+        "tv360plus2": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus2.png",
+        "tv360plus3": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus3.png",
+        "tv360plus4": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus4.png",
+        "tv360plus5": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus5.png",
+        "tv360plus6": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus6.png",
+        "tv360plus7": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus7.png",
+        "tv360plus8": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus8.png",
+        "tv360plus9": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus9.png",
+        "tv360plus10": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus10.png",
+        "tv360plus11": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus11.png",
+        "tv360plus12": "https://raw.githubusercontent.com/kkhangtrue/bintv-assets/main/logos/tv360plus12.png"
+      }
+    }
+  ]
+}
