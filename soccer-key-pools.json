@@ -2,24 +2,15 @@
   "version": 1,
   "groups": [
     {
-      "id": "abc",
+      "id": "eplc1vleague",
+      "name": "epl+c1+vleague",
       "league_ids": [
-        "39",
-        "2",
-        "787"
+        "539",
+        "583",
+        "3748"
       ],
       "keys": [
-        "PASTE_KEY_FOR_ABC_1",
-        "PASTE_KEY_FOR_ABC_2",
-        "PASTE_KEY_FOR_ABC_3"
-      ]
-    },
-    {
-      "id": "def",
-      "league_ids": [],
-      "keys": [
-        "PASTE_KEY_FOR_DEF_1",
-        "PASTE_KEY_FOR_DEF_2"
+        "u4Ijn-1q94tfEAjt"
       ]
     }
   ]
