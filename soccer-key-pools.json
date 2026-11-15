@@ -2,15 +2,25 @@
   "version": 1,
   "groups": [
     {
-      "id": "eplc1vleague",
-      "name": "epl+c1+vleague",
+      "id": "abc",
+      "name": "Nhóm A · EPL / C1 / V.League (ví dụ)",
       "league_ids": [
-        "539",
-        "583",
-        "3748"
+        "39",
+        "2",
+        "787"
+      ],
+      "keys": []
+    },
+    {
+      "id": "nationsleague2cupcuaanh",
+      "name": "nationsleague2cupcuaanh",
+      "league_ids": [
+        "578",
+        "576",
+        "366"
       ],
       "keys": [
-        "u4Ijn-1q94tfEAjt"
+        "RD5fA-uq2d8sjrd2"
       ]
     }
   ]
