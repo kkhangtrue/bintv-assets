@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "groups": [
+    {
+      "id": "abc",
+      "league_ids": [
+        "39",
+        "2",
+        "787"
+      ],
+      "keys": [
+        "PASTE_KEY_FOR_ABC_1",
+        "PASTE_KEY_FOR_ABC_2",
+        "PASTE_KEY_FOR_ABC_3"
+      ]
+    },
+    {
+      "id": "def",
+      "league_ids": [],
+      "keys": [
+        "PASTE_KEY_FOR_DEF_1",
+        "PASTE_KEY_FOR_DEF_2"
+      ]
+    }
+  ]
+}
