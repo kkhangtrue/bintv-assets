@@ -3,20 +3,33 @@
   "groups": [
     {
       "id": "abc",
-      "name": "Nhóm A · EPL / C1 / V.League (ví dụ)",
+      "name": "Nhóm A",
       "league_ids": [
-        "3748",
+        "539",
         "583",
-        "539"
+        "3748"
       ],
       "keys": [
         "u4Ijn-1q94tfEAjt",
-        "PNvqL-lCYeO0pE3K"
+        "PNvqL-lCYeO0pE3K",
+        "s8nSr-wgrQCaLyQV"
       ]
     },
     {
-      "id": "nationsleague2cupcuaanh",
-      "name": "nationsleague2cupcuaanh",
+      "id": "def",
+      "name": "Nhóm B",
+      "league_ids": [
+        "637",
+        "719",
+        "764"
+      ],
+      "keys": [
+        "Gavpy-RkmfZ0uDFH"
+      ]
+    },
+    {
+      "id": "nhom-3",
+      "name": "Nhóm C",
       "league_ids": [
         "366",
         "576",
